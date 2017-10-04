@@ -37,7 +37,7 @@ class MesJSQ: NSObject ,JSQMessageData {
     var textMes    : String
     var time    : String
     var image   : String
-    //var imgSticker: String
+    //var imgSticker: Strin
     
     init(userN: String, textMes: String, time: String, image: String ) {
         self.username = userN

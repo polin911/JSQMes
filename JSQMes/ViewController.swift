@@ -12,14 +12,29 @@ import JSQMessagesViewController
 
 class ViewController: JSQMessagesViewController {
 
+    var messageModel = [MesJSQ]()
+    var mesModelJSQ = [JSQMessage]()
+    var appDel = UIApplication.shared.delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.title = chan
+        self.senderDisplayName = userName
     }
     
     override func viewWillAppear(_ animated: Bool) {
         initPubNub()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        
+        super.viewDidAppear(animated)
+        
+//        self.collectionView.messagesCollectionViewLayout.springinessEnabled = UserDefaults.springinessSetting()
+    }
+    
+    /////////////////////
+    
+    
     ///PubNub
     func initPubNub(){
         let appDel = UIApplication.shared.delegate! as! AppDelegate
@@ -74,13 +89,13 @@ class ViewController: JSQMessagesViewController {
                 let json = jsonMsg["message"] as? NSDictionary
                 
                 let usernameJson = (json?["senderName"] as AnyObject? as? String) ?? "" // to get rid of null
-                let textJson   = (json?["text"]  as AnyObject? as? String) ?? ""
+                let textJson   = (json?["message"]  as AnyObject? as? String) ?? ""
                 let timeJson   = (json?["time"]  as AnyObject? as? String) ?? ""
                 let imgJson    = (json?["image"] as AnyObject as? String) ?? ""
-                let sendIdJ   = (json?["senderid"] as AnyObject? as? String) ?? ""
+                let sendIdJ    = (json?["uuid"] as AnyObject? as? String) ?? ""
                 //let imgStickerJ  = (json?["stickers"] as AnyObject? as? String) ?? ""
                 
-                list.append(MesJSQ(userN: usernameJson, textMes: textJson, time: timeJson, image: imgJson, senderId: sendIdJ))
+                list.append(MesJSQ(userN: usernameJson, textMes: textJson, time: timeJson, image: imgJson))
             }
             collectionView.reloadData()
             
@@ -133,11 +148,11 @@ class ViewController: JSQMessagesViewController {
         let stringText    = stringData?["message"] as? String ?? ""
         let stringTime    = stringData?["time"] as? String ?? ""
         let stringImg     = stringData?["image"] as? String ?? ""
-        let strSendId     = stringData?["senderid"] as? String ?? ""
+        let strSendId     = stringData?["uuid"] as? String ?? ""
         //let stringSticker = stringData?["stickers"] as? String ?? ""
+        let mesId = message.uuid
         
-        
-        let newMessage = MesJSQ(userN: stringName, textMes: stringText, time: stringTime, image: stringImg, senderId: strSendId)
+        let newMessage = MesJSQ(userN: stringName, textMes: stringText, time: stringTime, image: stringImg)
         chatMesArray2.append(newMessage)
         updateChat()
     }
@@ -152,8 +167,47 @@ class ViewController: JSQMessagesViewController {
     }
     //////
     
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
+        
+        //for PubNub
+        let pubChat = MesJSQ(userN: senderDisplayName, textMes: text, time: getTime(), image: "")
+        let newDict = chatMessageToDictionary(pubChat)
+        appDel.client?.publish(newDict, toChannel: chan, compressed: true, withCompletion: nil)
+        messageModel.append(pubChat)
+        
+        //For JSq
+        let mes = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
+        mesModelJSQ.append(mes!)
+        finishSendingMessage()
+    }
 
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return mesModelJSQ.count
+    }
 
-
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
+        return mesModelJSQ[indexPath.item]
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
+        let buble = JSQMessagesBubbleImageFactory()
+        let message = mesModelJSQ[indexPath.item]
+        
+        if userName == message.senderDisplayName {
+            return buble?.outgoingMessagesBubbleImage(with: .blue)
+        } else {
+            return buble?.incomingMessagesBubbleImage(with: .green)
+        }
+    }
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
+        return  nil
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        let message = messageModel[indexPath.item]
+        let mesUseeName = message.senderDisplayName()
+        
+        return NSAttributedString(string: mesUseeName!)
+    }
 }
 

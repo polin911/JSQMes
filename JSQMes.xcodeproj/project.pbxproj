@@ -13,6 +13,8 @@
 		366FB9981F84E8AA00811B43 /* JSQMes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 366FB9961F84E8AA00811B43 /* JSQMes.xcdatamodeld */; };
 		366FB99A1F84E8AA00811B43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 366FB9991F84E8AA00811B43 /* Assets.xcassets */; };
 		366FB99D1F84E8AA00811B43 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 366FB99B1F84E8AA00811B43 /* LaunchScreen.storyboard */; };
+		366FB9A51F84E96E00811B43 /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366FB9A41F84E96E00811B43 /* global.swift */; };
+		C1DAD545EAF5DBD7B0966140 /* Pods_JSQMes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FE918C4D2BE075F37D94B1 /* Pods_JSQMes.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,10 @@
 		366FB9991F84E8AA00811B43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		366FB99C1F84E8AA00811B43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		366FB99E1F84E8AA00811B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		366FB9A41F84E96E00811B43 /* global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
+		399FDF60F26FB6CDE7CD13B0 /* Pods-JSQMes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSQMes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JSQMes/Pods-JSQMes.debug.xcconfig"; sourceTree = "<group>"; };
+		48FE918C4D2BE075F37D94B1 /* Pods_JSQMes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSQMes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6981F037A983AF8AD3043CDA /* Pods-JSQMes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSQMes.release.xcconfig"; path = "Pods/Target Support Files/Pods-JSQMes/Pods-JSQMes.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +37,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1DAD545EAF5DBD7B0966140 /* Pods_JSQMes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		319A512C153763C1653E796A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				48FE918C4D2BE075F37D94B1 /* Pods_JSQMes.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		366FB9831F84E8AA00811B43 = {
 			isa = PBXGroup;
 			children = (
 				366FB98E1F84E8AA00811B43 /* JSQMes */,
 				366FB98D1F84E8AA00811B43 /* Products */,
+				77C3D8E85DC1C5D1B1E600A7 /* Pods */,
+				319A512C153763C1653E796A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,8 +80,18 @@
 				366FB99B1F84E8AA00811B43 /* LaunchScreen.storyboard */,
 				366FB99E1F84E8AA00811B43 /* Info.plist */,
 				366FB9961F84E8AA00811B43 /* JSQMes.xcdatamodeld */,
+				366FB9A41F84E96E00811B43 /* global.swift */,
 			);
 			path = JSQMes;
+			sourceTree = "<group>";
+		};
+		77C3D8E85DC1C5D1B1E600A7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				399FDF60F26FB6CDE7CD13B0 /* Pods-JSQMes.debug.xcconfig */,
+				6981F037A983AF8AD3043CDA /* Pods-JSQMes.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +101,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 366FB9A11F84E8AA00811B43 /* Build configuration list for PBXNativeTarget "JSQMes" */;
 			buildPhases = (
+				33A075457743450558892D2E /* [CP] Check Pods Manifest.lock */,
 				366FB9881F84E8AA00811B43 /* Sources */,
 				366FB9891F84E8AA00811B43 /* Frameworks */,
 				366FB98A1F84E8AA00811B43 /* Resources */,
+				FFD92796E914D5787F012888 /* [CP] Embed Pods Frameworks */,
+				DD8FF86D7E061C82B0E00662 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -134,11 +164,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		33A075457743450558892D2E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DD8FF86D7E061C82B0E00662 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JSQMes/Pods-JSQMes-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FFD92796E914D5787F012888 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JSQMes/Pods-JSQMes-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		366FB9881F84E8AA00811B43 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				366FB9A51F84E96E00811B43 /* global.swift in Sources */,
 				366FB9921F84E8AA00811B43 /* ViewController.swift in Sources */,
 				366FB9981F84E8AA00811B43 /* JSQMes.xcdatamodeld in Sources */,
 				366FB9901F84E8AA00811B43 /* AppDelegate.swift in Sources */,
@@ -276,6 +355,7 @@
 		};
 		366FB9A21F84E8AA00811B43 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 399FDF60F26FB6CDE7CD13B0 /* Pods-JSQMes.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -291,6 +371,7 @@
 		};
 		366FB9A31F84E8AA00811B43 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6981F037A983AF8AD3043CDA /* Pods-JSQMes.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
